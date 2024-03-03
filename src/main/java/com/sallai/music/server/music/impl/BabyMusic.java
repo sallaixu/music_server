@@ -30,7 +30,7 @@ import static com.sallai.music.module._enum.MusicServiceEnum.BABY_MUSIC;
  */
 public class BabyMusic extends AbstractMusic {
     public static final String searchUrl = "https://www.gequbao.com/s/";
-    public static final String getPlayUrl = "https://www.gequbao.com";
+    public static final String getPlayUrl = "https://www.gequbao.com/music/";
     public static final String getPlayMusicUlr = "https://www.gequbao.com/api/play_url?id=";
     public static final ExecutorService pool = MyThreadPool.getThreadPool();
     private static final String TAG = "MusicBaby";
@@ -79,25 +79,43 @@ public class BabyMusic extends AbstractMusic {
         return musicList;
     }
 
-
-    private void getPlayUrl(final String urlPath, final MusicInfoBean musicInfoBean, final CountDownLatch countDownLatch) {
-        pool.execute(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println(Thread.currentThread().getName() + "send url");
-                String html = Http.sendHttp(getPlayUrl + urlPath);
-                String flagStr = "$('#btn-download-mp3').attr('href', '";
-                String lrcStr = "lrc: '\"";
-                String playUrl = subString(flagStr,"');",html);
-                String lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"\"'",html));
-                String convert = subString("cover: '", "',", html);
-                musicInfoBean.setImgUrl(convert);
-                musicInfoBean.setLyric(lrc);
-                musicInfoBean.setUrl(playUrl);
-                countDownLatch.countDown();
-            }
-        });
+    /**
+     * 获取歌曲详细信息
+     * @param musicId
+     * @return
+     */
+    @Override
+    public MusicInfoBean getMusicDetailInfo(String musicId) {
+        String html = Http.sendHttp(getPlayUrl + musicId);
+        String lrcStr = "window.mp3_lrc = `";
+        String author = subString("window.mp3_author = '","';",html);
+        String lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"`;",html));
+        String convert = subString("window.mp3_cover = '", "';", html);
+        String title = subString("window.mp3_title = '", "';", html);
+        MusicInfoBean infoBean = MusicInfoBean.builder().id(musicId).lyric(lrc).imgUrl(convert)
+                .artist(author).title(title)
+                .url(getPlayMusicUlr + musicId).build();
+        return infoBean;
     }
+
+//    private void getPlayUrl(final String urlPath, final MusicInfoBean musicInfoBean, final CountDownLatch countDownLatch) {
+//        pool.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println(Thread.currentThread().getName() + "send url");
+//                String html = Http.sendHttp(getPlayUrl + urlPath);
+//                String flagStr = "$('#btn-download-mp3').attr('href', '";
+//                String lrcStr = "lrc: '\"";
+//                String playUrl = subString(flagStr,"');",html);
+//                String lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"\"'",html));
+//                String convert = subString("cover: '", "',", html);
+//                musicInfoBean.setImgUrl(convert);
+//                musicInfoBean.setLyric(lrc);
+//                musicInfoBean.setUrl(playUrl);
+//                countDownLatch.countDown();
+//            }
+//        });
+//    }
 
     private String subString(String start,String end,String content) {
         int startIndex = content.indexOf(start);

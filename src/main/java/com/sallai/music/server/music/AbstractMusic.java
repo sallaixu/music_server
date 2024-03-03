@@ -1,6 +1,10 @@
 package com.sallai.music.server.music;
 
 import com.sallai.music.bean.MusicInfoBean;
+import com.sallai.music.module._enum.MusicServiceEnum;
+import com.sallai.music.server.music.impl.BabyMusic;
+import com.sallai.music.server.music.impl.NetEasyMusic;
+import com.sallai.music.server.music.impl.SliderKzMusic;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -17,6 +21,7 @@ import static com.sallai.music.utils.AppConstant.RQUEST_URL_TIMEOUT;
  * Author: sallai
  * Date: 2023/9/23
  * Email: sallai@aliyun.com
+ * @author sallai
  */
 
 public abstract class AbstractMusic implements BaseMusicInterface {
@@ -35,4 +40,12 @@ public abstract class AbstractMusic implements BaseMusicInterface {
         }
         musicList.removeAll(removeList);
     }
+
+
+    @Override
+    public MusicInfoBean getMusicDetailInfo(String musicId) {
+        return new MusicInfoBean();
+    }
+
+
 }

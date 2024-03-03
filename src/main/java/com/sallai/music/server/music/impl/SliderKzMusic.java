@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
  * <p>
  * Author:
  * Date: 2023/9/6
+ * @author sallai
  */
 public class SliderKzMusic extends AbstractMusic {
     private final String searchUrl = "http://music.918123.xyz/vk_auth.php?q=";
