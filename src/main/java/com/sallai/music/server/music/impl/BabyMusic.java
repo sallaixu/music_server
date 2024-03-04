@@ -1,11 +1,16 @@
 package com.sallai.music.server.music.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.sallai.music.bean.MusicInfoBean;
 import com.sallai.music.bean.MusicListVo;
 import com.sallai.music.server.music.AbstractMusic;
 import com.sallai.music.utils.CharEncodeUtil;
 import com.sallai.music.utils.Http;
 import com.sallai.music.utils.MyThreadPool;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,6 +33,7 @@ import static com.sallai.music.module._enum.MusicServiceEnum.BABY_MUSIC;
  * Date: 2023/8/23
  * url: https://www.gequbao.com
  */
+@Slf4j
 public class BabyMusic extends AbstractMusic {
     public static final String searchUrl = "https://www.gequbao.com/s/";
     public static final String getPlayUrl = "https://www.gequbao.com/music/";
@@ -87,6 +93,15 @@ public class BabyMusic extends AbstractMusic {
     @Override
     public MusicInfoBean getMusicDetailInfo(String musicId) {
         String html = Http.sendHttp(getPlayUrl + musicId);
+        String playUrl = Http.sendHttp(getPlayMusicUlr + musicId+ "&json=1");
+        String url = "";
+        try {
+            JSONObject jsonObject = JSON.parseObject(playUrl);
+            JSONObject urlObject = jsonObject.getJSONObject("data");
+            url = urlObject.getString("url");
+        } catch (Exception e) {
+            log.error("获取播放连接异常");
+        }
         String lrcStr = "window.mp3_lrc = `";
         String author = subString("window.mp3_author = '","';",html);
         String lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"`;",html));
@@ -94,7 +109,7 @@ public class BabyMusic extends AbstractMusic {
         String title = subString("window.mp3_title = '", "';", html);
         MusicInfoBean infoBean = MusicInfoBean.builder().id(musicId).lyric(lrc).imgUrl(convert)
                 .artist(author).title(title)
-                .url(getPlayMusicUlr + musicId).build();
+                .url(url).build();
         return infoBean;
     }
 
