@@ -36,8 +36,19 @@ public class SliderKzMusic extends AbstractMusic {
             JSONObject jsonObject = musicArray.getJSONObject(i);
             String url = jsonObject.getString("url");
             url = StringUtils.contains(url,"http") ? url : baseHost + url;
+            String title = jsonObject.getString("tit_art");
+            String artist = "";
+            if(title != null 
+               && title.contain("-")) {
+               String[] splitStr = title.split("-");
+               if(splitStr.length == 2) {
+                   artist = splitStr[0].trim();
+                   title = splitStr[1].trim();
+               } 
+           }
             MusicInfoBean info = MusicInfoBean.builder().id(jsonObject.getString("id"))
-                    .artist(jsonObject.getString("tit_art"))
+                    .artist(artist)
+                    .title(title)
                     .duration(jsonObject.getInteger("duration"))
                     .url(url).build();
             musicVo.getMusicinfo().add(info);
