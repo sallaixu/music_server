@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.sallai.module._enum.MusicServiceEnum;
 
 /**
  * 音乐实体
@@ -23,6 +24,7 @@ public class MusicInfoBean {
     private String id;
     private String title;
     private String url;
+    private MusicServiceEnum sourceType; 
     @Builder.Default
     private int audioType = 1;
     @Builder.Default
