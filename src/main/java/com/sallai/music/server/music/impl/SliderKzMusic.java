@@ -39,7 +39,7 @@ public class SliderKzMusic extends AbstractMusic {
             String title = jsonObject.getString("tit_art");
             String artist = "";
             if(title != null 
-               && title.contain("-")) {
+               && title.contains("-")) {
                String[] splitStr = title.split("-");
                if(splitStr.length == 2) {
                    artist = splitStr[0].trim();
