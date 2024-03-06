@@ -1,10 +1,11 @@
 package com.sallai.music.bean;
 
+import com.sallai.music.module._enum.MusicServiceEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.sallai.module._enum.MusicServiceEnum;
 
 /**
  * 音乐实体

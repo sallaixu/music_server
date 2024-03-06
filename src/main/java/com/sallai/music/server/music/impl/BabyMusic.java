@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sallai.music.bean.MusicInfoBean;
 import com.sallai.music.bean.MusicListVo;
+import com.sallai.music.module._enum.MusicServiceEnum;
 import com.sallai.music.server.music.AbstractMusic;
 import com.sallai.music.utils.CharEncodeUtil;
 import com.sallai.music.utils.Http;
@@ -75,6 +76,7 @@ public class BabyMusic extends AbstractMusic {
                 author = authorDiv.text();
             }
             MusicInfoBean musicBeanVo = MusicInfoBean.builder()
+                    .sourceType(MusicServiceEnum.BABY_MUSIC)
                     .url(getPlayMusicUlr+id)
                     .duration(1000 * 60 * 3).title(aTag.text())
                     .artist(author).id(id).build();
