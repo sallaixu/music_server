@@ -1,5 +1,7 @@
 package com.sallai.music.bean;
 
+import com.sallai.music.module._enum.MusicServiceEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +25,7 @@ public class MusicInfoBean {
     private String id;
     private String title;
     private String url;
+    private MusicServiceEnum sourceType; 
     @Builder.Default
     private int audioType = 1;
     @Builder.Default

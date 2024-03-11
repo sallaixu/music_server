@@ -23,27 +23,27 @@ import org.apache.commons.lang3.StringUtils;
  * Date: 2023/9/6
  */
 public class HifiniMusic extends AbstractMusic {
-    private final String searchUrl = "http://music.918123.xyz/vk_auth.php?q=";
-    private final String baseHost = "http://music.918123.xyz/";
+    private final String searchUrl = "https://www.hifini.com/search-";
+    private final String suffix = "-1-1.htm";
 
     @Override
     public MusicListVo searchMusic(String keyword, int size) {
-        String data = Http.sendHttp(searchUrl + keyword);
+        String data = Http.sendHttp(searchUrl + keyword + suffix);
         JSONObject dataJson = JSON.parseObject(data);
         JSONObject audios = dataJson.getJSONObject("audios");
         JSONArray musicArray = audios.getJSONArray("");
         int count = Math.min(size, (musicArray.size() - 1));
         MusicListVo musicVo = MusicListVo.builder().totalTime(10000).count(count).build();
-        for (int i = 0; i < count; i++) {
-            JSONObject jsonObject = musicArray.getJSONObject(i);
-            String url = jsonObject.getString("url");
-            url = StringUtils.contains(url,"http") ? url : baseHost + url;
-            MusicInfoBean info = MusicInfoBean.builder().id(jsonObject.getString("id"))
-                    .artist(jsonObject.getString("tit_art"))
-                    .duration(jsonObject.getInteger("duration"))
-                    .url(url).build();
-            musicVo.getMusicinfo().add(info);
-        }
+        // for (int i = 0; i < count; i++) {
+        //     JSONObject jsonObject = musicArray.getJSONObject(i);
+        //     String url = jsonObject.getString("url");
+        //     url = StringUtils.contains(url,"http") ? url : baseHost + url;
+        //     MusicInfoBean info = MusicInfoBean.builder().id(jsonObject.getString("id"))
+        //             .artist(jsonObject.getString("tit_art"))
+        //             .duration(jsonObject.getInteger("duration"))
+        //             .url(url).build();
+        //     musicVo.getMusicinfo().add(info);
+        // }
         return musicVo;
     }
 
@@ -69,8 +69,8 @@ public class HifiniMusic extends AbstractMusic {
     }
 
     public static void main(String[] args) {
-       String res = new HifiniMusic().getUrlEncode("蔡琴");
-       System.out.println(res);
+    
+       new HifiniMusic().searchMusic("蔡琴",10);
         // MusicListVo musicVo = new SliderKzMusic().searchMusic("泪蛋蛋掉在酒杯杯里", 20);
         // for (MusicInfoBean musicInfoBean : musicVo.getMusicinfo()) {
         //     System.out.println(musicInfoBean);

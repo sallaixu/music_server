@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.sallai.music.bean.MusicInfoBean;
 import com.sallai.music.bean.MusicListVo;
+import com.sallai.music.module._enum.MusicServiceEnum;
 import com.sallai.music.server.music.AbstractMusic;
 import com.sallai.music.utils.Http;
 
@@ -36,8 +37,20 @@ public class SliderKzMusic extends AbstractMusic {
             JSONObject jsonObject = musicArray.getJSONObject(i);
             String url = jsonObject.getString("url");
             url = StringUtils.contains(url,"http") ? url : baseHost + url;
+            String title = jsonObject.getString("tit_art");
+            String artist = "";
+            if(title != null 
+               && title.contains("-")) {
+               String[] splitStr = title.split("-");
+               if(splitStr.length == 2) {
+                   artist = splitStr[0].trim();
+                   title = splitStr[1].trim();
+               } 
+           }
             MusicInfoBean info = MusicInfoBean.builder().id(jsonObject.getString("id"))
-                    .artist(jsonObject.getString("tit_art"))
+                    .artist(artist)
+                    .title(title)
+                    .sourceType(MusicServiceEnum.SLIDER_KZ)
                     .duration(jsonObject.getInteger("duration"))
                     .url(url).build();
             musicVo.getMusicinfo().add(info);
