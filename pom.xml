@@ -33,13 +33,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.70</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.6.0</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -58,6 +51,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.6</version>
+        </dependency>
+        <!--         https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp-->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.3</version>
         </dependency>
 
 

@@ -3,15 +3,24 @@ package com.sallai.music.controller;
 import com.sallai.music.bean.MusicInfoBean;
 import com.sallai.music.bean.MusicListVo;
 import com.sallai.music.module._enum.MusicServiceEnum;
+import com.sallai.music.module.pojo.DownLoadInfoPojo;
 import com.sallai.music.server.music.AbstractMusic;
 import com.sallai.music.server.music.BaseMusicInterface;
 import com.sallai.music.server.music.MusicInstanceFactory;
+import com.sallai.music.server.music.MusicService;
 import com.sallai.music.server.music.impl.BabyMusic;
 import com.sallai.music.server.music.impl.NetEasyMusic;
 import com.sallai.music.server.music.impl.SliderKzMusic;
+import com.sallai.music.utils.Http;
+import com.sallai.music.utils.OkHttpUtil;
 import com.sallai.music.utils.RR;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 
 
 /**
@@ -25,6 +34,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/_api/music")
 @CrossOrigin
 public class MusicController {
+    @Autowired
+    MusicService musicService;
+
 
     @GetMapping("/search/{type}/{keyword}/{size}")
     public RR playNext(@PathVariable(name = "type") String type, @PathVariable(name = "keyword") String keyword,
@@ -38,5 +50,10 @@ public class MusicController {
         BaseMusicInterface musicInterface = MusicInstanceFactory.getInstance(type);
         MusicInfoBean musicDetailInfo = musicInterface.getMusicDetailInfo(id);
         return RR.ok(musicDetailInfo);
+    }
+
+    @GetMapping("/download")
+    public void getMusicDetail(@RequestParam String url) throws IOException {
+        musicService.downLoad(url);
     }
 }
