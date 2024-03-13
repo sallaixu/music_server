@@ -1,24 +1,23 @@
 package com.sallai.music.server.music.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
-import com.sallai.music.bean.MusicInfoBean;
-import com.sallai.music.bean.MusicListVo;
-import com.sallai.music.module._enum.MusicServiceEnum;
-import com.sallai.music.server.music.AbstractMusic;
-import com.sallai.music.utils.AppConstant;
-import com.sallai.music.utils.Http;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.Strings;
+import static com.sallai.music.module._enum.MusicServiceEnum.NET_EASY;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.sallai.music.module._enum.MusicServiceEnum.NET_EASY;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.sallai.music.bean.MusicInfoBean;
+import com.sallai.music.bean.MusicListVo;
+import com.sallai.music.server.music.AbstractMusic;
+import com.sallai.music.utils.AppConstant;
+import com.sallai.music.utils.Http;
 
 
 /**
@@ -89,7 +88,9 @@ public class NetEasyMusic extends AbstractMusic {
             m.setTitle(res.getString("name"));
             m.setDuration(res.getInteger("dt"));
             m.setId(res.getString("id"));
+            m.setSourceType(NET_EASY);
             musicList.add(m);
+            
         }
         MusicListVo musicResult = new MusicListVo();
         musicResult.setDataSourceName(NET_EASY.getName());

@@ -13,7 +13,9 @@ public enum MusicServiceEnum {
     //下歌宝音乐
     BABY_MUSIC("下歌宝音乐"),
     //vip音乐
-    SLIDER_KZ("vip音乐");
+    SLIDER_KZ("vip音乐"),
+    //HIFINI.COM
+    HIFI_NI("hifini");
     private String name;
     private MusicServiceEnum () {
 

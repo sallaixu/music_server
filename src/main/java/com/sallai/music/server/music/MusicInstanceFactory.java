@@ -2,6 +2,7 @@ package com.sallai.music.server.music;
 
 import com.sallai.music.module._enum.MusicServiceEnum;
 import com.sallai.music.server.music.impl.BabyMusic;
+import com.sallai.music.server.music.impl.HifiniMusic;
 import com.sallai.music.server.music.impl.NetEasyMusic;
 import com.sallai.music.server.music.impl.SliderKzMusic;
 
@@ -25,6 +26,8 @@ public class MusicInstanceFactory {
                     musicInterface = new NetEasyMusic();break;
                 case SLIDER_KZ:
                     musicInterface = new SliderKzMusic();break;
+                case HIFI_NI:
+                    musicInterface = new HifiniMusic();break;
                 default:
                     musicInterface = new SliderKzMusic();break;
             }

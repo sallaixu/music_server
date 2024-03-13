@@ -1,26 +1,21 @@
 package com.sallai.music.controller;
 
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.sallai.music.bean.MusicInfoBean;
 import com.sallai.music.bean.MusicListVo;
-import com.sallai.music.module._enum.MusicServiceEnum;
-import com.sallai.music.module.pojo.DownLoadInfoPojo;
-import com.sallai.music.server.music.AbstractMusic;
 import com.sallai.music.server.music.BaseMusicInterface;
 import com.sallai.music.server.music.MusicInstanceFactory;
 import com.sallai.music.server.music.MusicService;
-import com.sallai.music.server.music.impl.BabyMusic;
-import com.sallai.music.server.music.impl.NetEasyMusic;
-import com.sallai.music.server.music.impl.SliderKzMusic;
-import com.sallai.music.utils.Http;
-import com.sallai.music.utils.OkHttpUtil;
 import com.sallai.music.utils.RR;
-import okhttp3.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
 
 
 /**

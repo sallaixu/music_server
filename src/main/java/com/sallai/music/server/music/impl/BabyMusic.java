@@ -134,11 +134,7 @@ public class BabyMusic extends AbstractMusic {
 //        });
 //    }
 
-    private String subString(String start,String end,String content) {
-        int startIndex = content.indexOf(start);
-        int stopIndex = content.indexOf(end, startIndex);
-        return content.substring(startIndex + start.length(), stopIndex);
-    }
+    
 
 
     public static void main(String[] args) {

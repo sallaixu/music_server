@@ -1,18 +1,20 @@
 package com.sallai.music.server.music;
 
-import com.sallai.music.module.pojo.DownLoadInfoPojo;
-import com.sallai.music.utils.OkHttpUtil;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Objects;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sallai.music.utils.OkHttpUtil;
+
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * @ClassName MusicService

@@ -1,19 +1,15 @@
 package com.sallai.music.server.music;
 
-import com.sallai.music.bean.MusicInfoBean;
-import com.sallai.music.module._enum.MusicServiceEnum;
-import com.sallai.music.server.music.impl.BabyMusic;
-import com.sallai.music.server.music.impl.NetEasyMusic;
-import com.sallai.music.server.music.impl.SliderKzMusic;
-import org.apache.commons.lang3.StringUtils;
+import static com.sallai.music.utils.AppConstant.RQUEST_URL_TIMEOUT;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.StringUtils;
 
-import static com.sallai.music.utils.AppConstant.RQUEST_URL_TIMEOUT;
+import com.sallai.music.bean.MusicInfoBean;
 
 
 /**
@@ -45,6 +41,12 @@ public abstract class AbstractMusic implements BaseMusicInterface {
     @Override
     public MusicInfoBean getMusicDetailInfo(String musicId) {
         return new MusicInfoBean();
+    }
+
+    public String subString(String start,String end,String content) {
+        int startIndex = "".equals(start) ? 0 : content.indexOf(start);
+        int stopIndex = content.indexOf(end, startIndex + start.length());
+        return content.substring(startIndex + start.length(), stopIndex);
     }
 
 
