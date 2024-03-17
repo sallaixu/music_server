@@ -1,4 +1,34 @@
 # 应用服务 WEB 访问端口
 server:
   port: 3012
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/powernode
+#    username: root
+#    password: root
+spring:
+  datasource:
+    username: music
+    password: AaSPRfjZXXApjiFJ
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://148.135.106.205:3306/music?useUnicode=ture&characterEncoding=utf-8&&rewriteBatchedStatements=true
+    hikari:
+      max-lifetime: 50000
+  redis:
+    host: 148.135.106.205
+    password: 741442446
+    port: 5379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 10
+        min-idle: 3
+        max-wait: 3000ms
+  session:
+    store-type: redis
+    #设置超时时间
+    timeout: 3600
+
+
+
 

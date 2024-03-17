@@ -1,14 +1,15 @@
 package com.sallai.music.controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import com.sallai.music.module.vo.SongVo;
+import com.sallai.music.module.vo.UserVo;
+import com.sallai.music.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import com.sallai.music.bean.MusicInfoBean;
 import com.sallai.music.bean.MusicListVo;
@@ -50,5 +51,23 @@ public class MusicController {
     @GetMapping("/download")
     public void getMusicDetail(@RequestParam String url) throws IOException {
         musicService.downLoad(url);
+    }
+
+    @GetMapping("/like/list")
+    public RR getLikeSongList(@RequestParam int page, @RequestParam int size)  {
+        PageResult<SongVo> pageResult = musicService.getLikeSongList(page,size);
+        return RR.ok(pageResult);
+    }
+
+    @PostMapping("/like/add")
+    public RR addLikeSong(@RequestBody @Validated List<SongVo> songVos)  {
+        musicService.addLikeSong(songVos);
+        return RR.ok().setMsg("添加成功");
+    }
+
+    @PostMapping("/like/remove")
+    public RR removeLikeSong(@RequestBody @Validated List<String> ids)  {
+        int count = musicService.removeLikeSong(ids);
+        return RR.ok().setMsg("移除成功:" + count);
     }
 }

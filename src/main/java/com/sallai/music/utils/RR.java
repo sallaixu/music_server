@@ -18,10 +18,16 @@ import java.io.Serializable;
 public class RR implements Serializable {
     private int code;
     private String msg;
+    private String errorType;
     private Object data;
 
     public RR setCode(int code) {
         this.code = code;
+        return this;
+    }
+
+    public RR setErrorType(String errorType) {
+        this.errorType = errorType;
         return this;
     }
 
@@ -69,8 +75,54 @@ public class RR implements Serializable {
         return new RR(code, msg);
     }
 
-    public static RR errorEnum(ErrorEnum errorEnum) {
-        return RR.error(errorEnum.getCode(), errorEnum.getMsg());
+    public static  RR error(StateCode code) {
+        return new RR(code.code, code.message);
+    }
+
+    public static RR StateEnum(StateCode errorEnum) {
+        RR r = RR.error(errorEnum.code, errorEnum.message);
+        r.setErrorType(errorEnum.message);
+        return r;
+    }
+
+
+    public static enum StateCode {
+        /**
+         * QR 登录异常
+         */
+        QR_LOGIN_EXPIRE(1,"QR 登录异常"),
+        /**
+         * token 过期
+         */
+        TOKEN_EXPIRE(201,"token 过期"),
+        /**
+         * 未登录
+         */
+        TOKEN_ABSENT(202,"未登录"),
+        /**
+         * 未知错误
+         */
+        UNKNOW(211,"未知错误"),
+        /**
+         * 运行时错误
+         */
+        RUNTIME_EXCEPTION(212,"运行时异常"),
+        /**
+         * 成功
+         */
+        ATTR_EXCEPTION(221,"参数绑定异常"),
+        /**
+         * 成功
+         */
+        SUCCESS(200,"成功");
+
+        public final int code;
+        public final String message;
+
+        private StateCode(int code,String message) {
+            this.code =  code;
+            this.message = message;
+        }
     }
 
 }
