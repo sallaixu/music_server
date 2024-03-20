@@ -61,11 +61,11 @@ public class JwtUtil {
 
     public UserVo verify() {
         String token = servletRequest.getHeader("token");
-        if(!StringUtils.hasText(token)) { throw new TokenException(); }
+        if(!StringUtils.hasText(token)) { throw new TokenException("未登录"); }
         DecodedJWT verify = verify(token);
         Claim id = verify.getClaim("userId");
         if(id.isNull()) {
-            throw new TokenException();
+            throw new TokenException("登录信息异常");
         }
         UserVo userVo = UserVo.builder().id(id.asString()).build();
         return userVo;

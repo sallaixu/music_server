@@ -30,7 +30,7 @@ public class GlobalException {
     public RR tokenException(TokenException e) {
         log.error(e.getLocalizedMessage());
         e.printStackTrace();
-        return RR.StateEnum(RR.StateCode.TOKEN_EXPIRE);
+        return RR.StateEnum(RR.StateCode.TOKEN_EXPIRE).setMsg(e.getLocalizedMessage());
     }
 
     @ExceptionHandler(value = {RuntimeException.class})
