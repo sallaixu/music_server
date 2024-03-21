@@ -8,6 +8,7 @@ import com.sallai.music.module.pojo.QrCallBackPojo;
 import com.sallai.music.server.SocketService;
 import com.sallai.music.utils.JwtUtil;
 import com.sallai.music.utils.OkHttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -29,6 +30,7 @@ import static com.sallai.music.utils.AppConstant.QR_URL;
  * @Version 1.0
  **/
 @Service
+@Slf4j
 public class QrService {
     @Autowired
     private OkHttpUtil okHttpUtil;
@@ -42,6 +44,8 @@ public class QrService {
 
     public <T> T getQrLoginUrl(Class<T> t) throws IOException {
         Response response = okHttpUtil.sendGetRequest(QR_URL, new HashMap<>());
+        log.info(QR_URL);
+        log.info(response.body().toString());
         if (response.code() == HttpStatus.OK.value()) {
             String string = Objects.requireNonNull(response.body()).string();
             return JSON.parseObject(string, t);
