@@ -16,6 +16,6 @@ public class AppConstant {
     public final static String API_TOEKN = "BR3J7mEzc75j7xUEiiblINIlNaL";
 
     public final static String QR_SECRET_KEY = "48547105db83473c92c814359e841344";
-    public final static String QR_URL = "https://login.vicy.cn/8lXdSX7FSMykbl9nFDWESdc6zfouSAEz/wxLogin/tempUserId?secretKey=9e55b7acfe3145abb5d2e7e27a4db017";
+    public final static String QR_URL = "https://login.vicy.cn/8lXdSX7FSMykbl9nFDWESdc6zfouSAEz/wxLogin/tempUserId?secretKey=48547105db83473c92c814359e841344";
 
 }
