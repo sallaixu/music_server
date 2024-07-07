@@ -1,13 +1,5 @@
 package com.sallai.music.server.music;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sallai.music.dao.mapper.SongMapper;
@@ -15,15 +7,20 @@ import com.sallai.music.module.entity.SongEntity;
 import com.sallai.music.module.vo.SongVo;
 import com.sallai.music.module.vo.UserVo;
 import com.sallai.music.utils.JwtUtil;
-import com.sallai.music.utils.PageResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.sallai.music.utils.OkHttpUtil;
-
+import com.sallai.music.utils.PageResult;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName MusicService
@@ -105,7 +102,7 @@ public class MusicService {
 
     /**
      * 添加喜欢歌曲
-     * @param songVo
+     * @param songVos
      */
     @Transactional(rollbackFor = {Exception.class})
     public void addLikeSong(List<SongVo> songVos) {
@@ -131,8 +128,7 @@ public class MusicService {
     @Transactional(rollbackFor = {Exception.class})
     public int removeLikeSong(List<String> ids) {
         UserVo verify = jwtUtil.verify();
-        int delete = songMapper.delete(songService.query().eq("user_id", verify.getId())
+        return songMapper.delete(songService.query().eq("user_id", verify.getId())
                 .in("id", ids).getWrapper());
-        return delete;
     }
 }
