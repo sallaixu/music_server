@@ -108,7 +108,7 @@ public class BabyMusic extends AbstractMusic {
         String author = subString("window.mp3_author = '","';",html);
         String lrc = "";
         try {
-            String lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"`;",html));
+            lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"`;",html));
         }catch(Exception e) {
             log.error("解析歌词错误");
         }
