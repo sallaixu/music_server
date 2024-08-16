@@ -106,7 +106,12 @@ public class BabyMusic extends AbstractMusic {
         }
         String lrcStr = "window.mp3_lrc = `";
         String author = subString("window.mp3_author = '","';",html);
-        String lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"`;",html));
+        String lrc = "";
+        try {
+            String lrc = CharEncodeUtil.unicodeToUtf8(subString(lrcStr,"`;",html));
+        }catch(Exception e) {
+            log.error("解析歌词错误");
+        }
         String convert = subString("window.mp3_cover = '", "';", html);
         String title = subString("window.mp3_title = '", "';", html);
         MusicInfoBean infoBean = MusicInfoBean.builder().id(musicId).lyric(lrc).imgUrl(convert)
