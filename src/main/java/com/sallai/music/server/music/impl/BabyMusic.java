@@ -100,7 +100,7 @@ public class BabyMusic extends AbstractMusic {
         try {
             JSONObject jsonObject = JSON.parseObject(playUrl);
             JSONObject urlObject = jsonObject.getJSONObject("data");
-            url = urlObject.getString("url");
+            url = urlObject.getString("url").replace("https","http");
         } catch (Exception e) {
             log.error("获取播放连接异常");
         }
