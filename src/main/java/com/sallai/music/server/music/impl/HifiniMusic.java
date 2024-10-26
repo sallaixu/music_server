@@ -86,9 +86,9 @@ public class HifiniMusic extends AbstractMusic {
         String title = subString("title: '","'", html);
         String artist = subString("author:'","'", html);
         String url = subString("url: '","'", html);
-        String param = subString("generateParam('","')", html);
-        String genParam = generateParam(param);
-        url += genParam;
+        //String param = subString("generateParam('","')", html);
+        //String genParam = generateParam(param);
+        //url += genParam;
         String pic = subString("pic: '","'", html);
         String str = subString("generateParam('","'",html);
         MusicInfoBean vo = MusicInfoBean.builder().id(musicId).title(title)
