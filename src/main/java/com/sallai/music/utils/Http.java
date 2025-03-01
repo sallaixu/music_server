@@ -110,6 +110,33 @@ public class Http {
     }
 
 
+    public static String sendPostHttpFormData(String url, String data){
+        RequestBody body = RequestBody.create(data,MediaType.parse("application/x-www-form-urlencoded"));
+        OkHttpClient client = getClient();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
+                .header("custom",API_TOEKN)
+                .post(body)
+                .build();
+
+        try {
+            assert client != null;
+            try (Response response= client.newCall(request).execute()) {
+                //解析成小讯格式
+                return Objects.requireNonNull(response.body()).string();
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.debug("okHttp","okhttp->error");
+        return "ERROR";
+
+    }
+
+
     public static boolean downloadSmallFile(final String uri, final String filePath) {
         String httpCookie = getHttpCookie(uri);
         httpCookie = httpCookie.replaceAll("\\[","").replaceAll("]", "");
